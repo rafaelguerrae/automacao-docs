@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:Preferences xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="20.4">
+    <DocumentPreference PageWidth="595.276" PageHeight="841.89" PageOrientation="Portrait" PagesPerDocument="1" FacingPages="false" DocumentBleedUniformSize="true" DocumentBleedTopOffset="0" DocumentBleedInsideOrLeftOffset="0" DocumentBleedBottomOffset="0" DocumentBleedOutsideOrRightOffset="0" SlugTopOffset="0" SlugInsideOrLeftOffset="0" SlugBottomOffset="0" SlugRightOrOutsideOffset="0" PreviewMode="Off" OverprintPreview="false" />
+    <ViewPreference HorizontalMeasurementUnits="Points" VerticalMeasurementUnits="Points" RulerOrigin="PageOrigin" ShowRulers="true" />
+    <GridPreference HorizontalGridlineDivision="72" VerticalGridlineDivision="72" HorizontalGridSubdivision="8" VerticalGridSubdivision="8" GridShown="false" GridSnapto="false" />
+    <GuidePreference GuidesShown="true" GuidesLocked="false" GuidesSnapto="true" />
+    <MarginPreference ColumnCount="1" ColumnGutter="12" Top="36" Bottom="36" Left="36" Right="36" ColumnDirection="Horizontal" ColumnsPositions="0 523.276" />
+</idPkg:Preferences> 

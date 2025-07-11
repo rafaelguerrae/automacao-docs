@@ -1,0 +1,108 @@
+{
+    "produto": {
+        "nome": "Sistema de Automação Industrial XYZ-2000",
+        "modelo": "XYZ-2000",
+        "categoria": "Automação Industrial"
+    },
+    "secoes": [
+        {
+            "nome": "Características Técnicas",
+            "conteudo": [
+                {
+                    "tipo": "especificacao",
+                    "nome": "Tensão de Alimentação",
+                    "valor": "24V DC ±10%"
+                },
+                {
+                    "tipo": "especificacao", 
+                    "nome": "Consumo de Corrente",
+                    "valor": "2.5A máximo"
+                },
+                {
+                    "tipo": "especificacao",
+                    "nome": "Temperatura de Operação",
+                    "valor": "-10°C a +60°C"
+                },
+                {
+                    "tipo": "especificacao",
+                    "nome": "Grau de Proteção",
+                    "valor": "IP65"
+                }
+            ]
+        },
+        {
+            "nome": "Interfaces de Comunicação",
+            "conteudo": [
+                {
+                    "tipo": "lista",
+                    "titulo": "Protocolos Suportados",
+                    "itens": [
+                        "Modbus RTU/TCP",
+                        "Ethernet/IP",
+                        "PROFINET",
+                        "DeviceNet"
+                    ]
+                },
+                {
+                    "tipo": "especificacao",
+                    "nome": "Portas Ethernet",
+                    "valor": "2x RJ45 10/100 Mbps"
+                },
+                {
+                    "tipo": "especificacao",
+                    "nome": "Porta Serial",
+                    "valor": "1x RS485"
+                }
+            ]
+        },
+        {
+            "nome": "Entradas e Saídas",
+            "conteudo": [
+                {
+                    "tipo": "especificacao",
+                    "nome": "Entradas Digitais",
+                    "valor": "16 canais 24V DC"
+                },
+                {
+                    "tipo": "especificacao",
+                    "nome": "Saídas Digitais",
+                    "valor": "8 canais relay 250V AC/30V DC"
+                },
+                {
+                    "tipo": "especificacao",
+                    "nome": "Entradas Analógicas",
+                    "valor": "4 canais 0-10V / 4-20mA"
+                },
+                {
+                    "tipo": "especificacao",
+                    "nome": "Saídas Analógicas",
+                    "valor": "2 canais 0-10V / 4-20mA"
+                }
+            ]
+        },
+        {
+            "nome": "Dimensões e Instalação",
+            "conteudo": [
+                {
+                    "tipo": "especificacao",
+                    "nome": "Dimensões (LxAxP)",
+                    "valor": "120 x 80 x 60 mm"
+                },
+                {
+                    "tipo": "especificacao",
+                    "nome": "Peso",
+                    "valor": "350g"
+                },
+                {
+                    "tipo": "especificacao",
+                    "nome": "Montagem",
+                    "valor": "Trilho DIN 35mm"
+                },
+                {
+                    "tipo": "texto",
+                    "valor": "O equipamento deve ser instalado em ambiente limpo e seco, protegido de vibração excessiva."
+                }
+            ]
+        }
+    ]
+} 

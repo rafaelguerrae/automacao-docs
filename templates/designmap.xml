@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?aid style="50" type="document" readerVersion="6.0" featureSet="257" product="20.4(4)" ?>
+<Document xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="20.4" Self="d" StoryList="ub1" AppliedMathMLFontSize="10" AppliedMathMLRgbColor="0 0 0" TintValue="100" PreferMathMLInEpubExport="false" Name="documento_gerado.indd" ZeroPoint="0 0" ActiveLayer="ucc" CMYKProfile="Coated FOGRA39 (ISO 12647-2:2004)" RGBProfile="sRGB IEC61966-2.1" SolidColorIntent="UseColorSettings" AfterBlendingIntent="UseColorSettings" DefaultImageIntent="UseColorSettings" RGBPolicy="PreserveEmbeddedProfiles" CMYKPolicy="CombinationOfPreserveAndSafeCmyk" AccurateLABSpots="false">
+    <Properties>
+        <AppliedMathMLSwatch type="enumeration">Nothing</AppliedMathMLSwatch>
+        <Label>
+            <KeyValuePair Key="kAdobeDPS_Version" Value="2" />
+        </Label>
+    </Properties>
+    
+    <!-- Linguagens básicas -->
+    <Language Self="Language/$ID/[No Language]" Name="$ID/[No Language]" SingleQuotes="&apos;&apos;" DoubleQuotes="&quot;&quot;" PrimaryLanguageName="$ID/[No Language]" SublanguageName="$ID/[No Language]" Id="0" HyphenationVendor="$ID/" SpellingVendor="$ID/" />
+    <Language Self="Language/$ID/Portuguese%3a Brazilian" Name="$ID/Portuguese: Brazilian" SingleQuotes="''" DoubleQuotes="""" PrimaryLanguageName="$ID/Portuguese" SublanguageName="$ID/Brazilian" Id="544" HyphenationVendor="Hunspell" SpellingVendor="Hunspell" />
+    <Language Self="Language/$ID/English%3a USA" Name="$ID/English: USA" SingleQuotes="''" DoubleQuotes="""" PrimaryLanguageName="$ID/English" SublanguageName="$ID/USA" Id="269" HyphenationVendor="Hunspell" SpellingVendor="Hunspell" />
+    
+    <!-- Referencias de recursos -->
+    <idPkg:Graphic src="Resources/Graphic.xml" />
+    <idPkg:Fonts src="Resources/Fonts.xml" />
+    <idPkg:Styles src="Resources/Styles.xml" />
+    
+    <!-- Lista de numeração padrão -->
+    <NumberingList Self="NumberingList/$ID/[Default]" Name="$ID/[Default]" ContinueNumbersAcrossStories="false" ContinueNumbersAcrossDocuments="false" />
+    
+    <!-- Grid de página -->
+    <NamedGrid Self="NamedGrid/$ID/[Page Grid]" Name="$ID/[Page Grid]">
+        <GridDataInformation FontStyle="Regular" PointSize="12" CharacterAki="0" LineAki="9" HorizontalScale="100" VerticalScale="100" LineAlignment="LeftOrTopLineJustify" GridAlignment="AlignEmCenter" CharacterAlignment="AlignEmCenter">
+            <Properties>
+                <AppliedFont type="string">Arial</AppliedFont>
+            </Properties>
+        </GridDataInformation>
+    </NamedGrid>
+    
+    <!-- Preferências -->
+    <idPkg:Preferences src="Resources/Preferences.xml" />
+    
+    <!-- Configurações de layout -->
+    <AdjustLayoutPreference EnableAdjustLayout="false" AllowLockedObjectsToAdjust="true" AllowFontSizeAndLeadingAdjustment="false" ImposeFontSizeRestriction="false" MinimumFontSize="6" MaximumFontSize="324" EnableAutoAdjustMargins="false" />
+    
+    <!-- Opções de nota de fim -->
+    <EndnoteOption EndnoteTitle="Notas finais" EndnoteTitleStyle="ParagraphStyle/$ID/NormalParagraphStyle" StartEndnoteNumberAt="1" EndnoteMarkerStyle="CharacterStyle/$ID/[No character style]" EndnoteTextStyle="ParagraphStyle/$ID/NormalParagraphStyle" EndnoteSeparatorText="&#x9;" EndnotePrefix="" EndnoteSuffix="">
+        <Properties>
+            <EndnoteNumberingStyle type="enumeration">Arabic</EndnoteNumberingStyle>
+            <RestartEndnoteNumbering type="enumeration">Continuous</RestartEndnoteNumbering>
+            <EndnoteMarkerPositioning type="enumeration">SuperscriptMarker</EndnoteMarkerPositioning>
+            <ScopeValue type="enumeration">EndnoteDocumentScope</ScopeValue>
+            <FrameCreateOption type="enumeration">NewPage</FrameCreateOption>
+            <ShowEndnotePrefixSuffix type="enumeration">NoPrefixSuffix</ShowEndnotePrefixSuffix>
+        </Properties>
+    </EndnoteOption>
+    
+    <!-- Opções condicionais -->
+    <ConditionalTextPreference ShowConditionIndicators="ShowIndicators" ActiveConditionSet="n" />
+    
+    <!-- Tags XML -->
+    <idPkg:Tags src="XML/Tags.xml" />
+    
+    <!-- Camada -->
+    <Layer Self="ucc" Name="Camada 1" Visible="true" Locked="false" IgnoreWrap="false" ShowGuides="true" LockGuides="false" UI="true" Expendable="true" Printable="true">
+        <Properties>
+            <LayerColor type="enumeration">LightBlue</LayerColor>
+        </Properties>
+    </Layer>
+    
+    <!-- Master spreads e spreads -->
+    <idPkg:MasterSpread src="MasterSpreads/MasterSpread_u11d.xml" />
+    <idPkg:Spread src="Spreads/Spread_u11f.xml" />
+    
+    <!-- Seção -->
+    <Section Self="ud5" Length="1" AlternateLayoutLength="1" AlternateLayout="A4 V" Name="" ContinueNumbering="true" IncludeSectionPrefix="false" Marker="" PageStart="ud4" SectionPrefix="">
+        <Properties>
+            <PageNumberStyle type="enumeration">Arabic</PageNumberStyle>
+        </Properties>
+    </Section>
+    
+    <!-- Usuário do documento -->
+    <DocumentUser Self="dDocumentUser0" UserName="$ID/Unknown User Name">
+        <Properties>
+            <UserColor type="enumeration">Gold</UserColor>
+        </Properties>
+    </DocumentUser>
+    
+    <!-- Stories -->
+    {% for secao in secoes %}
+    <idPkg:Story src="Stories/Story_{{ secao.story_id }}.xml" />
+    {% endfor %}
+    
+    <!-- BackingStory -->
+    <idPkg:BackingStory src="XML/BackingStory.xml" />
+</Document> 

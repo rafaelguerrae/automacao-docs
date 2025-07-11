@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:Styles xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="20.4">
+    <RootCharacterStyleGroup Self="u159">
+        <CharacterStyle Self="CharacterStyle/$ID/[No character style]" Name="$ID/[No character style]" />
+    </RootCharacterStyleGroup>
+    <RootParagraphStyleGroup Self="u15a">
+        <ParagraphStyle Self="ParagraphStyle/$ID/NormalParagraphStyle" Name="$ID/NormalParagraphStyle" NextStyle="ParagraphStyle/$ID/NormalParagraphStyle" IncludeClass="true">
+            <Properties>
+                <BasedOn type="object">ParagraphStyle/$ID/[No paragraph style]</BasedOn>
+            </Properties>
+            <CharacterStyle Self="CharacterStyle/$ID/[No character style]" />
+        </ParagraphStyle>
+        <ParagraphStyle Self="ParagraphStyle/Titulo" Name="Titulo" NextStyle="ParagraphStyle/$ID/NormalParagraphStyle" IncludeClass="true">
+            <Properties>
+                <BasedOn type="object">ParagraphStyle/$ID/[No paragraph style]</BasedOn>
+                <AppliedFont type="string">Arial</AppliedFont>
+                <FontStyle type="string">Bold</FontStyle>
+                <PointSize type="unit">16</PointSize>
+                <Leading type="unit">19.2</Leading>
+                <SpaceBefore type="unit">12</SpaceBefore>
+                <SpaceAfter type="unit">6</SpaceAfter>
+            </Properties>
+            <CharacterStyle Self="CharacterStyle/$ID/[No character style]" />
+        </ParagraphStyle>
+        <ParagraphStyle Self="ParagraphStyle/$ID/[No paragraph style]" Name="$ID/[No paragraph style]" />
+    </RootParagraphStyleGroup>
+    <RootTableStyleGroup Self="u15b" />
+    <RootCellStyleGroup Self="u15c" />
+</idPkg:Styles> 
