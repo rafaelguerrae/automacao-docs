@@ -1,224 +1,129 @@
 # Automação de Documentos InDesign (IDML)
 
-Este projeto permite gerar automaticamente documentos InDesign no formato IDML a partir de dados JSON estruturados, utilizando a biblioteca **SimpleIDML** para máxima robustez e simplicidade.
+Este projeto permite gerar automaticamente documentos InDesign no formato IDML a partir de dados JSON estruturados, criando **conteúdo visível** que aparece corretamente quando aberto no Adobe InDesign.
 
-## ✅ Status do Projeto
+## Projeto
 
-**Projeto CONCLUÍDO e ATUALIZADO com SimpleIDML!** 
 
-- ✅ **Nova versão com SimpleIDML** - Abordagem recomendada
-- ✅ Geração robusta e estável de IDML
-- ✅ Biblioteca madura e testada em produção
-- ✅ Foco na lógica de negócio (conversão JSON)
-- ✅ Versão anterior mantida como referência
+- **Geração de conteúdo visível** - Texto aparece no InDesign
+- **Sistema de posicionamento corrigido** - TextFrames centralizados
+- **Estrutura JSON simplificada** - Foco em title/texto
+- **Manipulação direta de IDML** - Stories injetadas corretamente
+- **Numeração automática** - Diretórios test-1, test-2, etc.
 
-## Características
+## Características Principais
 
-- **Biblioteca SimpleIDML**: Utiliza biblioteca profissional para manipulação IDML
-- **Formato IDML**: Gera arquivos .idml compatíveis com Adobe InDesign CS4+
-- **Entrada JSON Estruturada**: Processa produtos com seções e especificações técnicas
-- **Robusto**: Gerenciamento automático da estrutura IDML complexa
-- **Extensível**: Pode compor documentos, importar XML, adicionar páginas
-- **Duas Abordagens**: SimpleIDML (recomendada) + implementação manual (referência)
+- **Conteúdo Visível**: Gera arquivos IDML com texto que aparece no InDesign
+- **Stories Reais**: Cria elementos `<Content>` com texto formatado
+- **TextFrames Conectados**: Liga Stories a TextFrames para exibição
+- **Posicionamento Inteligente**: Sistema de coordenadas corrigido
+- **JSON Simplificado**: Estrutura intuitiva com seções title/texto
+- **Análise Integrada**: Extrai IDML automaticamente para verificação
 
-## 🚀 Abordagem Recomendada: SimpleIDML
-
-### Instalação
+## Instalação
 
 ```bash
-pip install SimpleIDML
-pip install -r requirements.txt
+pip install -r src/requirements.txt
 ```
 
-### Estrutura do JSON de Entrada (Versão Atual)
+### Estrutura JSON Simplificada (Versão Atual)
 
 ```json
 {
-    "produto": {
-        "nome": "Sistema de Automação Industrial XYZ-2000",
-        "modelo": "XYZ-2000",
-        "categoria": "Automação Industrial"
-    },
     "secoes": [
         {
-            "nome": "Características Técnicas",
-            "conteudo": [
-                {
-                    "tipo": "especificacao",
-                    "nome": "Tensão de Alimentação",
-                    "valor": "24V DC ±10%"
-                },
-                {
-                    "tipo": "lista",
-                    "titulo": "Protocolos Suportados",
-                    "itens": ["Modbus RTU/TCP", "Ethernet/IP", "PROFINET"]
-                },
-                {
-                    "tipo": "texto",
-                    "valor": "Descrição adicional..."
-                }
-            ]
+            "title": "CARACTERÍSTICAS TÉCNICAS",
+            "texto": "O ET3200 é um multímetro digital de alta precisão..."
+        },
+        {
+            "title": "ESPECIFICAÇÕES",
+            "texto": "Tensão: 24V DC ±10%, Corrente: 0-10A, Precisão: ±0.1%"
         }
     ]
 }
 ```
 
-### Uso da Nova Versão
+### Uso Básico
 
 ```python
-from idml_generator_v2 import IDMLGeneratorV2
+from src.idml_generator import IDMLGenerator
 import json
 
 # Carregar dados JSON
-with open('exemplo_produto.json', 'r', encoding='utf-8') as f:
+with open('src/example.json', 'r', encoding='utf-8') as f:
     dados = json.load(f)
 
-# Gerar IDML usando SimpleIDML
-generator = IDMLGeneratorV2()
-generator.gerar_idml(dados, 'produto_final.idml')
+# Gerar IDML com análise automática
+generator = IDMLGenerator()
+generator.gerar_idml_completo(dados, base_name="meu-documento")
 ```
 
-### Executar Exemplo
+### Executar Exemplo Rápido
 
 ```bash
-# Gerar arquivo base (se necessário)
+cd src
 python idml_generator.py
-
-# Gerar com SimpleIDML (recomendado)
-python idml_generator_v2.py
 ```
 
-## 📊 Comparação das Abordagens
+## 🎯 Como Funciona (Técnico)
 
-| Aspecto | Implementação Manual | SimpleIDML (Recomendada) |
-|---------|---------------------|--------------------------|
-| **Complexidade** | Alta - gerenciar XML/ZIP | Baixa - foco no conteúdo |
-| **Manutenibilidade** | Difícil - estrutura IDML | Fácil - API limpa |
-| **Robustez** | Frágil - detalhes técnicos | Sólida - biblioteca testada |
-| **Funcionalidades** | Limitadas básicas | Extensas (composição, etc.) |
-| **Uso em Produção** | Le Figaro - magazine | ✅ Recomendado |
-
-## Estrutura do Projeto Atualizada
-
-```
-automacao/
-├── idml_generator_v2.py       # 🆕 GERADOR PRINCIPAL (SimpleIDML)
-├── idml_generator.py          # Gerador original (referência)
-├── exemplo_produto.json       # Exemplo com estrutura completa
-├── templates/                 # Templates XML (versão original)
-│   ├── mimetype.txt
-│   ├── designmap.xml
-│   ├── story.xml
-│   └── ...
-├── build/                     # Arquivos gerados
-│   └── documento_corrigido.idml
-├── requirements.txt
-└── README.md
-```
-
-## Resultados dos Testes
-
-### ✅ Teste SimpleIDML (Nova Versão):
-- **Arquivo gerado**: `produto_simpleidml.idml` (**38.430 bytes**)
-- **Crescimento**: +26.286 bytes de conteúdo processado
-- **Status**: ✅ Funcional e estável
-- **Método**: `import_xml(xml_content, at="/Root")` funcionando
-
-### ✅ Teste Implementação Original:
-- **Arquivo gerado**: `documento_corrigido.idml` (12.144 bytes)
-- **Status**: ✅ Funcional para casos básicos
-- **Método**: Construção manual XML/ZIP
-
-## Como Funciona (SimpleIDML)
-
-1. **Entrada**: JSON estruturado com produto e seções
-2. **Base**: Utiliza arquivo IDML existente como template
-3. **Processamento**: Converte JSON → XML estruturado
-4. **Importação**: `SimpleIDML.import_xml()` aplica conteúdo
-5. **Saída**: Arquivo .idml robusto e compatível
-
-## Funcionalidades Avançadas Disponíveis
-
-Com SimpleIDML, o projeto agora suporta:
-
-- 📄 **Composição de documentos** (combinar múltiplos IDML)
-- 📝 **Importação/exportação XML** avançada
-- 🎨 **Exploração de estruturas** existentes
-- 📊 **Manipulação de páginas** e spreads
-- 🔗 **Inserção de elementos** em pontos específicos
-- 📋 **Context managers** para operações seguras
-
-### Exemplos Avançados
-
+### 1. Processamento JSON → Stories
 ```python
-# Explorar estrutura de arquivo existente
-info = generator.explorar_idml_existente("template.idml")
-print(f"Stories: {info['stories']}")
-print(f"XML: {info['export_xml']}")
-
-# Composição de documentos (funcionalidade SimpleIDML)
-# doc1.insert_idml(doc2, at="/Root/section[2]")
-# doc1.add_page_from_idml(doc2, page_number=1)
+# Converte cada seção em uma Story com conteúdo real
+story_xml = f'''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:Story xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging">
+    <Story Self="{story_id}">
+        <StoryPreference OpticalMarginAlignment="false"/>
+        <ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/[No paragraph style]">
+            <CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+                <Content>{escaped_text}</Content>
+            </CharacterStyleRange>
+        </ParagraphStyleRange>
+    </Story>
+</idPkg:Story>'''
 ```
 
-## Dependências
+### 2. Injeção Direta no IDML
+- Manipula arquivo ZIP diretamente
+- Cria diretório `Stories/` se não existir
+- Registra Stories no `designmap.xml`
+- Atualiza spreads com TextFrames
 
-```txt
-SimpleIDML>=1.0.0
-Jinja2>=3.0.0
-lxml>=4.6.0
+### 3. Sistema de Posicionamento Corrigido
+```python
+center_x = -297.6  # Centro horizontal na spread
+start_y = -350     # Posição inicial Y
+transform_y = start_y + (i * 70)  # Distribuição vertical
+
+# ItemTransform formato: "1 0 0 1 X Y"
+textframe_xml = f'<TextFrame ItemTransform="1 0 0 1 {center_x} {transform_y}" ...>'
 ```
 
-## Próximos Passos Possíveis
+## 🔍 Arquitetura da Solução
 
-### Curto Prazo
-- 🎨 **Estilos personalizados** via JSON
-- 📷 **Inserção de imagens** (SimpleIDML suporta)
-- 📐 **Layout responsivo** baseado em conteúdo
+### Problemas Resolvidos
+1. **❌ Problema Original**: SimpleIDML `import_xml()` não criava conteúdo visível
+   - **✅ Solução**: Manipulação direta de arquivos Story com tags `<Content>`
 
-### Médio Prazo  
-- 📄 **Templates múltiplos** por tipo de produto
-- 🔄 **Pipeline de processamento** em lote
-- 📊 **Relatórios de geração** automáticos
+2. **❌ Posicionamento Incorreto**: TextFrames não apareciam centralizados
+   - **✅ Solução**: Sistema de coordenadas baseado em exemplos funcionais
 
-### Longo Prazo
-- 🌐 **API web** para geração remota
-- 🎯 **Interface gráfica** para configuração
-- 📈 **Integração com sistemas** ERP/CRM
+3. **❌ Caracteres Portugueses**: Acentos e símbolos não funcionavam
+   - **✅ Solução**: Escape XML adequado + encoding UTF-8
 
-## Notas Técnicas
+4. **❌ Estrutura Complexa**: JSON original muito complexo
+   - **✅ Solução**: JSON simplificado com title/texto
 
-### SimpleIDML
-- **Biblioteca madura**: Usada em produção (Le Figaro)
-- **Context managers**: Operações seguras
-- **API intuitiva**: Foco na lógica de negócio
-- **Funcionalidades avançadas**: Composição, XML, PDF
+### Fluxo de Processamento
+```
+JSON Input → Stories Creation → IDML Injection → TextFrame Positioning
+     ↓              ↓                ↓                    ↓      
+  Parsing      Content Tags     ZIP Manipulation    Coordinate System   
+```
 
-### Compatibilidade
-- Adobe InDesign CS4 ou superior
-- Formato IDML com DOMVersion 17.0+
-- Ferramentas compatíveis: QuarkXPress, Affinity Publisher
+## 🚀 Próximos Passos Possíveis
 
-### Arquivo Base
-O projeto agora utiliza um arquivo IDML base como template:
-- Gerado automaticamente se não existir
-- Pode ser personalizado conforme necessário
-- Serve como estrutura para SimpleIDML
-
----
-
-## 🎉 Resultado Final
-
-**Projeto totalmente funcional e profissional!**
-
-✅ **Versão SimpleIDML**: Robusta, extensível e pronta para produção  
-✅ **Versão Original**: Mantida como referência educacional  
-✅ **Documentação completa**: Exemplos e guias de uso  
-✅ **Testado e validado**: Arquivos IDML funcionais gerados  
-
-O gerador IDML está pronto para automações profissionais de documentos InDesign com máxima confiabilidade.
-
----
-
-**Tecnologias**: Python 3.8+, SimpleIDML, Jinja2, JSON, XML, Adobe IDML
-**Status**: ✅ Produção | **Licença**: MIT | **Mantenedor**: Rafael Guerra 
+### Imediato
+- 🎨 **Estilos personalizados** por tipo de seção
+- 📏 **Ajuste automático** de altura baseado no conteúdo
+- 🖼️ **Suporte a imagens** nas seções

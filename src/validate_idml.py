@@ -13,17 +13,24 @@ def validate_idml(arquivo_idml: str):
     Valida um arquivo IDML e exibe sua estrutura.
     
     Args:
-        arquivo_idml: Caminho para o arquivo IDML
+        arquivo_idml: Nome do arquivo IDML (será procurado no build/)
     """
-    if not os.path.exists(arquivo_idml):
-        print(f"❌ Arquivo não encontrado: {arquivo_idml}")
+    # Construir caminho para o arquivo no diretório build
+    if not arquivo_idml.startswith('../build/'):
+        build_path = f"../build/{arquivo_idml}"
+    else:
+        build_path = arquivo_idml
+    
+    if not os.path.exists(build_path):
+        print(f"❌ Arquivo não encontrado: {build_path}")
+        print(f"   Procurando em: {os.path.abspath(build_path)}")
         return False
     
-    print(f"🔍 Validando arquivo IDML: {arquivo_idml}")
-    print(f"📏 Tamanho: {os.path.getsize(arquivo_idml)} bytes")
+    print(f"🔍 Validando arquivo IDML: {build_path}")
+    print(f"📏 Tamanho: {os.path.getsize(build_path)} bytes")
     
     try:
-        with zipfile.ZipFile(arquivo_idml, 'r') as zipf:
+        with zipfile.ZipFile(build_path, 'r') as zipf:
             # Listar conteúdo
             files = zipf.namelist()
             print(f"📁 Arquivos encontrados: {len(files)}")
@@ -99,7 +106,7 @@ def validate_idml(arquivo_idml: str):
         return False
 
 
-def extrair_idml(arquivo_idml: str, diretorio_saida: str = None):
+def extrair_idml(arquivo_idml: str, diretorio_saida: str = ""):
     """
     Extrai o conteúdo de um arquivo IDML.
     
@@ -130,15 +137,15 @@ def extrair_idml(arquivo_idml: str, diretorio_saida: str = None):
 def main():
     """Função principal."""
     if len(sys.argv) < 2:
-        print("Uso: python validar_idml.py <arquivo.idml> [--extrair]")
-        print("Exemplo: python validar_idml.py examples/documento_produto.idml")
+        print("Uso: python validate_idml.py <arquivo.idml> [--extrair]")
+        print("Exemplo: python validate_idml.py examples/documento_produto.idml")
         return 1
     
     arquivo_idml = sys.argv[1]
     extrair = '--extrair' in sys.argv
     
     # Validar arquivo
-    if not validar_idml(arquivo_idml):
+    if not validate_idml(arquivo_idml):
         return 1
     
     # Extrair se solicitado
