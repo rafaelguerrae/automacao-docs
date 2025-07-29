@@ -1,0 +1,28 @@
+{
+  "pages": [
+    {
+      "sections": [
+        {
+          "title": "CARACTERÍSTICAS TÉCNICAS",
+          "text": "O ET3200 é um multímetro digital compacto e versátil, ideal para medições elétricas básicas. Possui display LCD de 3½ dígitos com indicação de polaridade automática e sinal de bateria baixa."
+        },
+        {
+          "title": "APLICAÇÕES",
+          "text": "Este instrumento pode ser usado em medições básicas na área de eletricidade, como tensão AC e DC, corrente AC e resistência. Possui função Peak Hold que mantém o valor de pico na tela, facilitando a leitura de valores que variam rapidamente. Ideal para eletricistas, técnicos em eletrônica e estudantes."
+        },
+        {
+          "title": "SEGURANÇA",
+          "text": "Este equipamento está de acordo com IEC-61010, sobre tensão CAT I 1000 V. Como determinado pela norma de segurança NR-10, o operador deve estar devidamente treinado e usar equipamentos de proteção individual adequados. Não utilize em ambientes com gases inflamáveis ou vapores."
+        },
+        {
+          "title": "ESPECIFICAÇÕES TÉCNICAS",
+          "text": "Tensão DC: 200mV/2V/20V/200V/1000V ±(0,5% + 1 dígito). Tensão AC: 2V/20V/200V/750V ±(0,8% + 3 dígitos). Corrente DC: 2mA/20mA/200mA/20A ±(0,8% + 1 dígito). Resistência: 200Ω/2kΩ/20kΩ/200kΩ/2MΩ ±(0,8% + 1 dígito). Alimentação: bateria 9V. Temperatura de operação: 0°C a 40°C."
+        },
+        {
+          "title": "CONDIÇÕES GERAIS",
+          "text": "A precisão é dada como ±(% da leitura + número de dígitos menos significativos) para 23°C ± 5°C e umidade relativa < 80%. Para temperaturas fora desta faixa, adicionar 0,1 x especificação por °C. O equipamento deve ser calibrado anualmente por laboratório credenciado pelo INMETRO."
+        }
+      ]
+    }
+  ]
+}

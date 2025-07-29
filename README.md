@@ -2,14 +2,14 @@
 
 Este projeto permite gerar automaticamente documentos InDesign no formato IDML a partir de dados JSON estruturados, criando **conteúdo visível** que aparece corretamente quando aberto no Adobe InDesign.
 
-## Projeto
-
+## Funcionalidades
 
 - **Geração de conteúdo visível** - Texto aparece no InDesign
-- **Sistema de posicionamento corrigido** - TextFrames centralizados
-- **Estrutura JSON simplificada** - Foco em title/texto
+- **Sistema de posicionamento corrigido** - TextFrames posicionados corretamente
+- **Estrutura JSON simplificada** - Foco em páginas/seções com title/texto
 - **Manipulação direta de IDML** - Stories injetadas corretamente
-- **Numeração automática** - Diretórios test-1, test-2, etc.
+- **CLI com múltiplos exemplos** - Teste com 1, 2 ou 3 páginas
+- **Posicionamento dinâmico** - Baseado em análise de estrutura fixa
 
 ## Características Principais
 
@@ -26,18 +26,22 @@ Este projeto permite gerar automaticamente documentos InDesign no formato IDML a
 pip install -r src/requirements.txt
 ```
 
-### Estrutura JSON Simplificada (Versão Atual)
+### Estrutura JSON Atualizada (Versão Atual)
 
 ```json
 {
-    "secoes": [
+    "pages": [
         {
-            "title": "CARACTERÍSTICAS TÉCNICAS",
-            "texto": "O ET3200 é um multímetro digital de alta precisão..."
-        },
-        {
-            "title": "ESPECIFICAÇÕES",
-            "texto": "Tensão: 24V DC ±10%, Corrente: 0-10A, Precisão: ±0.1%"
+            "sections": [
+                {
+                    "title": "CARACTERÍSTICAS TÉCNICAS",
+                    "text": "O ET3200 é um multímetro digital de alta precisão..."
+                },
+                {
+                    "title": "ESPECIFICAÇÕES",
+                    "text": "Tensão: 24V DC ±10%, Corrente: 0-10A, Precisão: ±0.1%"
+                }
+            ]
         }
     ]
 }
@@ -46,24 +50,38 @@ pip install -r src/requirements.txt
 ### Uso Básico
 
 ```python
-from src.idml_generator import IDMLGenerator
+from src.idml_generator import EnhancedIDMLGenerator
 import json
 
 # Carregar dados JSON
-with open('src/example.json', 'r', encoding='utf-8') as f:
+with open('examples/onePage.json', 'r', encoding='utf-8') as f:
     dados = json.load(f)
 
-# Gerar IDML com análise automática
-generator = IDMLGenerator()
-generator.gerar_idml_completo(dados, base_name="meu-documento")
+# Gerar IDML
+generator = EnhancedIDMLGenerator()
+generator.generate_file(dados, "meu-documento")
 ```
 
-### Executar Exemplo Rápido
+### Executar Exemplos
 
 ```bash
 cd src
-python idml_generator.py
+
+# Gerar documento com 1 página
+python idml_generator.py -one
+
+# Gerar documento com 2 páginas  
+python idml_generator.py -two
+
+# Gerar documento com 3 páginas
+python idml_generator.py -three
 ```
+
+### Exemplos Disponíveis
+
+- **onePage.json** - Documento com 1 página e 5 seções
+- **twoPages.json** - Documento com 2 páginas (5 + 6 seções)
+- **threePages.json** - Documento com 3 páginas (5 + 6 + 6 seções)
 
 ## 🎯 Como Funciona (Técnico)
 
@@ -74,7 +92,7 @@ story_xml = f'''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <idPkg:Story xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging">
     <Story Self="{story_id}">
         <StoryPreference OpticalMarginAlignment="false"/>
-        <ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/[No paragraph style]">
+        <ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/NormalParagraphStyle">
             <CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
                 <Content>{escaped_text}</Content>
             </CharacterStyleRange>
@@ -83,42 +101,46 @@ story_xml = f'''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 </idPkg:Story>'''
 ```
 
-### 2. Injeção Direta no IDML
-- Manipula arquivo ZIP diretamente
-- Cria diretório `Stories/` se não existir
-- Registra Stories no `designmap.xml`
-- Atualiza spreads com TextFrames
+### 2. Geração Dinâmica de Spreads
+- **Spread 1**: Página 1 apenas (página única)
+- **Spread 2+**: Páginas 2-3, 4-5, etc. (páginas duplas)
+- Cálculo automático de posições baseado em estrutura fixa
+- Registra spreads no `designmap.xml`
 
-### 3. Sistema de Posicionamento Corrigido
+### 3. Sistema de Posicionamento Baseado em Análise Fixa
 ```python
-center_x = -297.6  # Centro horizontal na spread
-start_y = -350     # Posição inicial Y
-transform_y = start_y + (i * 70)  # Distribuição vertical
+# Posições X por página (baseado em análise de estrutura fixa)
+if page_num == 1:
+    frame_x = 297.6377952754998
+elif page_num == 2:
+    frame_x = -297.6377952754999  # Página esquerda
+elif page_num == 3:
+    frame_x = 290.125984251878   # Página direita
 
-# ItemTransform formato: "1 0 0 1 X Y"
-textframe_xml = f'<TextFrame ItemTransform="1 0 0 1 {center_x} {transform_y}" ...>'
+# Posições Y específicas por página e seção
+page_1_positions = [-274.99, -158.77, -42.55, 73.66, 189.88]
 ```
 
 ## 🔍 Arquitetura da Solução
 
 ### Problemas Resolvidos
-1. **❌ Problema Original**: SimpleIDML `import_xml()` não criava conteúdo visível
-   - **✅ Solução**: Manipulação direta de arquivos Story com tags `<Content>`
+1. **❌ Problema Original**: Posicionamento incorreto de TextFrames
+   - **✅ Solução**: Análise de estrutura fixa para posicionamento exato
 
-2. **❌ Posicionamento Incorreto**: TextFrames não apareciam centralizados
-   - **✅ Solução**: Sistema de coordenadas baseado em exemplos funcionais
+2. **❌ Geração de Spreads**: Spreads não seguiam padrão correto
+   - **✅ Solução**: Spread 1 = página única, Spread 2+ = páginas duplas
 
 3. **❌ Caracteres Portugueses**: Acentos e símbolos não funcionavam
    - **✅ Solução**: Escape XML adequado + encoding UTF-8
 
-4. **❌ Estrutura Complexa**: JSON original muito complexo
-   - **✅ Solução**: JSON simplificado com title/texto
+4. **❌ CLI Limitado**: Apenas um exemplo de teste
+   - **✅ Solução**: CLI com -one, -two, -three para diferentes cenários
 
 ### Fluxo de Processamento
 ```
-JSON Input → Stories Creation → IDML Injection → TextFrame Positioning
+JSON Input → Stories Creation → Dynamic Spreads → TextFrame Positioning
      ↓              ↓                ↓                    ↓      
-  Parsing      Content Tags     ZIP Manipulation    Coordinate System   
+  Parsing      Content Tags     Spread Generation    Fixed Coordinates   
 ```
 
 ## 🚀 Próximos Passos Possíveis
@@ -127,3 +149,10 @@ JSON Input → Stories Creation → IDML Injection → TextFrame Positioning
 - 🎨 **Estilos personalizados** por tipo de seção
 - 📏 **Ajuste automático** de altura baseado no conteúdo
 - 🖼️ **Suporte a imagens** nas seções
+- 📄 **Mais exemplos** com 4+ páginas
+- 🔧 **Configuração de layout** via JSON (margens, espaçamento)
+
+### Recursos Avançados
+- 📊 **Templates múltiplos** para diferentes tipos de documento
+- 🎯 **Posicionamento automático** baseado em conteúdo
+- 📱 **Geração responsiva** para diferentes tamanhos de página
